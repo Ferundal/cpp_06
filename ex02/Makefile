@@ -40,10 +40,7 @@ INC_HEADERS_FORMAT=	-I ${dir ${HEADERS}}
 
 INC_HEADERS_DIR=	${foreach HEADERS, ${HEADERS}, ${INC_HEADERS_FORMAT}}
 
-SRCS_CLASSES=		Base.cpp \
-					A.cpp \
-					B.cpp \
-					C.cpp \
+SRCS_CLASSES=
 
 SRCS_CPP=			${SRCS_CLASSES} \
 					main.cpp \
