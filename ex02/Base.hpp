@@ -1,22 +1,12 @@
-#ifndef _Data_hpp_
-#define _Data_hpp_
+#ifndef _Base_hpp_
+#define _Base_hpp_
 
 # include <string>
 # include <iostream>
 
-class Data {
-private:
-	std::string secret;
+class Base {
 public:
-	Data(void );
-	Data(const Data& origin);
-	Data& operator =(const Data& origin);
-
-	~Data(void );
-	void TellSecret(void);
+	virtual ~Base(void );
 };
-
-uintptr_t	serialize(Data* ptr);
-Data*		deserialize(uintptr_t raw);
 
 #endif
