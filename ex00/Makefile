@@ -40,7 +40,7 @@ INC_HEADERS_FORMAT=	-I ${dir ${HEADERS}}
 
 INC_HEADERS_DIR=	${foreach HEADERS, ${HEADERS}, ${INC_HEADERS_FORMAT}}
 
-SRCS_CLASSES=
+SRCS_CLASSES=		Converter.cpp
 
 SRCS_CPP=			${SRCS_CLASSES} \
 					main.cpp \
