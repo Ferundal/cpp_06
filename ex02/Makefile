@@ -40,7 +40,10 @@ INC_HEADERS_FORMAT=	-I ${dir ${HEADERS}}
 
 INC_HEADERS_DIR=	${foreach HEADERS, ${HEADERS}, ${INC_HEADERS_FORMAT}}
 
-SRCS_CLASSES=		Data.cpp
+SRCS_CLASSES=		Base.cpp \
+					A.cpp \
+					B.cpp \
+					C.cpp \
 
 SRCS_CPP=			${SRCS_CLASSES} \
 					main.cpp \
@@ -53,7 +56,7 @@ endif
 
 OBJS_CPP=			${SRCS_CPP:.cpp=.o}
 
-NAME=				Serialization
+NAME=				Base
 
 CC=					clang++
 RM=					rm -f
