@@ -10,18 +10,18 @@
 # define DOUBLE_LITERAL_AMNT 3
 
 
-class Converter {
+class Data {
 private:
 	static const std::string	dLiterals[DOUBLE_LITERAL_AMNT];
-	bool						(Converter::*checkers[CONVERT_TYPE_AMNT])(const char *arg);
-	void						(Converter::*actions[CONVERT_TYPE_AMNT])(const char *arg);
+	bool						(Data::*checkers[CONVERT_TYPE_AMNT])(const char *arg);
+	void						(Data::*actions[CONVERT_TYPE_AMNT])(const char *arg);
 public:
 
-	Converter(void );
-	Converter(const Converter& origin);
-	Converter& operator =(const Converter& origin);
+	Data(void );
+	Data(const Data& origin);
+	Data& operator =(const Data& origin);
 
-	~Converter(void );
+	~Data(void );
 
 	void Convert(const char *arg);
 

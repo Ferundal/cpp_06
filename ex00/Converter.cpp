@@ -1,27 +1,27 @@
 #include "Converter.hpp"
 
-const std::string Converter::dLiterals[] = {
+const std::string Data::dLiterals[] = {
 		"-inf",
 		"+inf",
 		"nan"
 } ;
 
-Converter::Converter(void ) {
-	checkers[0] = &Converter::isChar;
-	checkers[1] = &Converter::isInt;
-	checkers[2] = &Converter::isDouble;
-	checkers[3] = &Converter::isFloat;
-	actions[0] = &Converter::fromChar;
-	actions[1] = &Converter::fromInt;
-	actions[2] = &Converter::fromDouble;
-	actions[3] = &Converter::fromFloat;
+Data::Data(void ) {
+	checkers[0] = &Data::isChar;
+	checkers[1] = &Data::isInt;
+	checkers[2] = &Data::isDouble;
+	checkers[3] = &Data::isFloat;
+	actions[0] = &Data::fromChar;
+	actions[1] = &Data::fromInt;
+	actions[2] = &Data::fromDouble;
+	actions[3] = &Data::fromFloat;
 }
 
-Converter::Converter(const Converter& origin) {
+Data::Data(const Data& origin) {
 	*this = origin;
 }
 
-Converter& Converter::operator =(const Converter& origin) {
+Data& Data::operator =(const Data& origin) {
 	for (int i = 0; i < CONVERT_TYPE_AMNT; i++) {
 		checkers[i] = origin.checkers[i];
 		actions[i] = origin.actions[i];
@@ -29,7 +29,7 @@ Converter& Converter::operator =(const Converter& origin) {
 	return (*this);
 }
 
-void Converter::Convert(const char *arg) {
+void Data::Convert(const char *arg) {
 	for (int i = 0; i < CONVERT_TYPE_AMNT; i++) {
 		if ((this->*checkers[i])(arg)) {
 			(this->*actions[i])(arg);
@@ -38,14 +38,14 @@ void Converter::Convert(const char *arg) {
 	}
 }
 
-bool Converter::isChar(const char *arg) {
+bool Data::isChar(const char *arg) {
 	if (arg[0] != '\0' && arg[1] == '\0'
 		&& std::isprint(arg[0]) && !std::isdigit(arg[0]))
 		return (true);
 	else
 		return (false);
 }
-bool Converter::isInt(const char *arg) {
+bool Data::isInt(const char *arg) {
 	std::istringstream str_stream((std::string(arg)));
 	int _t_int;
 	if (!(str_stream >> _t_int).fail() && str_stream.eof())
@@ -53,7 +53,7 @@ bool Converter::isInt(const char *arg) {
 	else
 		return (false);
 }
-bool Converter::isDouble(const char *arg) {
+bool Data::isDouble(const char *arg) {
 	std::string str_arg (arg);
 	std::istringstream str_stream(str_arg);
 	double _t_int;
@@ -63,7 +63,7 @@ bool Converter::isDouble(const char *arg) {
 		return (false);
 }
 
-bool Converter::isFloat(const char *arg) {
+bool Data::isFloat(const char *arg) {
 	std::string str_arg (arg);
 	if (str_arg.find_last_of('f') != str_arg.length() - 1)
 		return (false);
@@ -77,7 +77,7 @@ bool Converter::isFloat(const char *arg) {
 		return (false);
 }
 
-void Converter::fromChar(const char *arg) {
+void Data::fromChar(const char *arg) {
 	char _t_char = arg[0];
 	std::cout << "char: ";
 	this->PutChar(_t_char);
@@ -112,7 +112,7 @@ void Converter::fromChar(const char *arg) {
 
 
 
-void Converter::fromInt(const char *arg) {
+void Data::fromInt(const char *arg) {
 	std::istringstream str_stream((std::string(arg)));
 	int _t_int;
 	str_stream >> _t_int;
@@ -147,7 +147,7 @@ void Converter::fromInt(const char *arg) {
 	}
 }
 
-void Converter::fromDouble(const char *arg) {
+void Data::fromDouble(const char *arg) {
 	std::istringstream str_stream((std::string(arg)));
 	double _t_double;
 	str_stream >> _t_double;
@@ -190,7 +190,7 @@ void Converter::fromDouble(const char *arg) {
 			str_stream >> _t_float;
 		}
 		else
-			_t_float = static_cast<int>(_t_double);
+			_t_float = static_cast<float>(_t_double);
 		this->PutFloat(_t_float);
 	}
 	catch (std::exception &exception)
@@ -201,7 +201,7 @@ void Converter::fromDouble(const char *arg) {
 	this->PutDouble(_t_double);
 }
 
-void Converter::fromFloat(const char *arg) {
+void Data::fromFloat(const char *arg) {
 	std::string str_arg (arg);
 	str_arg.erase(str_arg.length() - 1);
 	std::istringstream str_stream(str_arg);
@@ -257,28 +257,28 @@ void Converter::fromFloat(const char *arg) {
 	}
 }
 
-void Converter::PutChar(const char &_t_char) {
+void Data::PutChar(const char &_t_char) {
 	if (std::isprint(_t_char))
 		std::cout << _t_char << std::endl;
 	else
 		std::cout << "Non displayable" << std::endl;
 }
-void Converter::PutInt(const int &_t_int) {
+void Data::PutInt(const int &_t_int) {
 	std::cout << _t_int << std::endl;
 }
-void Converter::PutDouble(const double &_t_double) {
+void Data::PutDouble(const double &_t_double) {
 	if (static_cast<double>(static_cast<long>(_t_double)) == _t_double)
 		std::cout << std::fixed << std::setprecision(1) << _t_double << std::endl;
 	else
 		std::cout << _t_double << std::endl;
 }
-void Converter::PutFloat(const float &_t_float) {
+void Data::PutFloat(const float &_t_float) {
 	if (static_cast<float>(static_cast<int>(_t_float)) == _t_float)
 		std::cout << std::fixed << std::setprecision(1) << _t_float << 'f' << std::endl;
 	else
 		std::cout << _t_float << 'f' << std::endl;
 }
 
-Converter::~Converter(void ) {
+Data::~Data(void ) {
 
 }
